@@ -1,0 +1,36 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Account</title>
+    <link rel="stylesheet" href="Signup.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create your Account</h1>
+        <p>Enter your mine name and set password to create your account</p>
+        <form id="accountForm">
+            <input type="text" name="Mine_Name" placeholder="Enter mine name" required>
+            <input type="text" name="Mine_ID" placeholder="Mine ID" required>
+            <div class="row">
+                <input type="text" name="Mine_Location" placeholder="Mine location" required>
+                <input type="text" placeholder="Area" required>
+            </div>
+            <input type="email" name="Email" placeholder="Email" required>
+            <input type="tel"  name="Contact_Number" placeholder="Contact no." required>
+            <input type="password" placeholder="Set Password" required>
+            <input type="password"name="Password" placeholder="Confirm Password" required>
+            <div class="actions">
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            <button type="submit">Sign in</button>
+            <p class="login-link">Already have an account? <a href="signIn.html">Login</a></p>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

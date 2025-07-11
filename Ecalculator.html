@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECalculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #000;
+      padding: 20px;
+     
+    
+    }
+    h2 {
+      text-align: center;
+      color: #00b200;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      background: whitesmoke;
+      color: black;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #00b200;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+    }
+    .form-group-inline {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .form-group-inline select, .form-group-inline input {
+      flex: 1;
+    }
+
+    .sidebar {
+    width: 200px;
+    background-color: #1e1e1e;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    height: auto;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 20px 0;
+}
+
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.sidebar a:hover {
+    color: #00ff00;
+}
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ECalculator</h2>
+    <div class="form-group">
+      <label for="mine-type">Select Mine</label>
+      <select id="mine-type">
+        <option value="Underground">Underground Mine</option>
+        <option value="Surface">Surface Mine</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="degree">Select Degree</label>
+      <select id="degree">
+        <option value="Degree 1">Degree 1</option>
+        <option value="Degree 2">Degree 2</option>
+        <option value="Degree 3">Degree 3</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Drilling</label>
+      <div class="form-group-inline">
+        <select id="drilling-fuel">
+          <option value="2.31">Petrol</option>
+          <option value="2.68">Diesel</option>
+          <option value="2.75">Natural Gas</option>
+        </select>
+        <input type="number" id="drilling-quantity" placeholder="Quantity (liters)" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Blasting</label>
+      <input type="number" id="blasting-quantity" placeholder="Dynamite Quantity (kg)" />
+    </div>
+    <div class="form-group">
+      <label>Excavation</label>
+      <input type="number" id="coal-production" placeholder="Total Coal Production (tons)" />
+    </div>
+    <div class="form-group">
+      <label>Transportation</label>
+      <div class="form-group-inline">
+        <select id="transportation-fuel">
+          <option value="2.31">Petrol</option>
+          <option value="2.68">Diesel</option>
+          <option value="2.75">Natural Gas</option>
+        </select>
+        <input type="number" id="transportation-quantity" placeholder="Quantity (liters)" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Crushing</label>
+      <div class="form-group-inline">
+        <select id="crushing-fuel">
+          <option value="2.31">Petrol</option>
+          <option value="2.68">Diesel</option>
+          <option value="2.75">Natural Gas</option>
+        </select>
+        <input type="number" id="crushing-quantity" placeholder="Quantity (liters)" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Electricity Used</label>
+      <input type="number" id="electricity-quantity" placeholder="Electricity (kWh)" />
+    </div>
+    <button onclick="calculateEmissions()">Calculate Total Emissions</button>
+    <div class="result" id="result">Total Emission: 0.00 tCO₂e</div>
+  </div>
+
+  <nav class="sidebar">
+    <ul>
+        <li><a href="dashboard.html" id="home">Home</a></li>
+        <li><a href="Ecalculator.html" id="calculator">Calculator</a></li>
+        <li><a href="#" id="pathway">Pathway</a></li>
+        <li><a href="#" id="offset">Offset</a></li>
+        <li><a href="#" id="report">Report</a></li>
+        <li><a href="#" id="profile">Profile</a></li>
+    </ul>
+</nav>
+
+
+  <script>
+    function calculateEmissions() {
+      // Parse and validate inputs to ensure no undefined or NaN values
+      const drillingFuelFactor = parseFloat(document.getElementById("drilling-fuel").value) || 0;
+      const drillingQuantity = parseFloat(document.getElementById("drilling-quantity").value) || 0;
+      const drillingEmission = drillingFuelFactor * drillingQuantity;
+
+      const blastingQuantity = parseFloat(document.getElementById("blasting-quantity").value) || 0;
+      const blastingEmission = blastingQuantity * 0.15; // Example emission factor for dynamite (kgCO2 per kg)
+
+      const coalProduction = parseFloat(document.getElementById("coal-production").value) || 0;
+      const excavationEmission = coalProduction * 0.1; // Example emission factor for coal production (kgCO2 per ton)
+
+      const transportationFuelFactor = parseFloat(document.getElementById("transportation-fuel").value) || 0;
+      const transportationQuantity = parseFloat(document.getElementById("transportation-quantity").value) || 0;
+      const transportationEmission = transportationFuelFactor * transportationQuantity;
+
+      const crushingFuelFactor = parseFloat(document.getElementById("crushing-fuel").value) || 0;
+      const crushingQuantity = parseFloat(document.getElementById("crushing-quantity").value) || 0;
+      const crushingEmission = crushingFuelFactor * crushingQuantity;
+
+      const electricityQuantity = parseFloat(document.getElementById("electricity-quantity").value) || 0;
+      const electricityEmission = electricityQuantity * 0.93; // Example factor for electricity in kgCO2 per kWh
+
+      // Calculate total emissions in tons of CO2 equivalent
+      const totalEmission = (
+        drillingEmission +
+        blastingEmission +
+        excavationEmission +
+        transportationEmission +
+        crushingEmission +
+        electricityEmission
+      ) / 1000; // Convert from kgCO2 to tCO2e
+
+      // Display the total emission result
+      document.getElementById("result").innerText = `Total Emission: ${totalEmission.toFixed(2)} tCO₂e`;
+    }
+  </script>
+</body>
+</html>

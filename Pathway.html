@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pathway: Carbon & Methane Reduction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    h2, h3 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #28a745;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .output {
+      margin-top: 20px;
+    }
+
+    .output p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>EcoPath</h2>
+    <h3>Carbon Reduction Strategies</h3>
+
+    <!-- Electric Vehicles Section -->
+    <div class="form-group">
+      <label for="evs">Number of EVs:</label>
+      <input type="number" id="evs" placeholder="Enter number of EVs">
+    </div>
+    <div class="form-group">
+      <label for="time-frame-ev">Time Frame (years):</label>
+      <input type="number" id="time-frame-ev" placeholder="Enter time frame">
+    </div>
+    <p id="co2-reduction-ev">Estimated CO2 reduction: 0 tons per year</p>
+
+    <!-- Renewable Energy Section -->
+    <div class="form-group">
+      <label for="installed-capacity">Installed Renewable Energy Capacity (MW):</label>
+      <input type="number" id="installed-capacity" placeholder="Enter capacity in MW">
+    </div>
+    <div class="form-group">
+      <label for="energy-percent">Percentage of Energy Consumed (%):</label>
+      <input type="number" id="energy-percent" placeholder="Enter percentage">
+    </div>
+    <p id="co2-reduction-renewable">Estimated CO2 reduction: 0 tons per year</p>
+
+    <h3>Methane Reduction Strategies</h3>
+
+    <!-- Methane Capture Section -->
+    <div class="form-group">
+      <label for="methane-capture">Total captured methane (tons):</label>
+      <input type="number" id="methane-capture" placeholder="Enter captured methane">
+    </div>
+    <div class="form-group">
+      <label for="vam-processed">Amount of methane processed (tons):</label>
+      <input type="number" id="vam-processed" placeholder="Enter methane processed">
+    </div>
+    <p id="co2-from-methane">CO2 produced from methane oxidation: 0 tons</p>
+
+    <button id="calculate-btn">Calculate</button>
+  </div>
+
+  <script>
+    // Wait for DOM to load before running script
+    document.addEventListener("DOMContentLoaded", function () {
+      // Attach click event to the Calculate button
+      document.getElementById("calculate-btn").addEventListener("click", function () {
+        // Input values
+        const evs = parseFloat(document.getElementById("evs").value) || 0;
+        const timeFrameEV = parseFloat(document.getElementById("time-frame-ev").value) || 1;
+
+        const installedCapacity = parseFloat(document.getElementById("installed-capacity").value) || 0;
+        const energyPercent = parseFloat(document.getElementById("energy-percent").value) || 0;
+
+        const methaneCaptured = parseFloat(document.getElementById("methane-capture").value) || 0;
+        const methaneProcessed = parseFloat(document.getElementById("vam-processed").value) || 0;
+
+        // Perform calculations
+        const co2ReductionEV = evs * 2.4 * timeFrameEV; // CO2 reduction from EVs
+        const co2ReductionRenewable = (installedCapacity * energyPercent * 1.5 * timeFrameEV) / 100; // CO2 reduction from renewable energy
+        const co2FromMethane = ( methaneProcessed) * 2.74; // CO2 produced from methane oxidation
+
+        // Update outputs
+        document.getElementById("co2-reduction-ev").textContent =` Estimated CO2 reduction: ${co2ReductionEV.toFixed(2)} tons per year`;
+        document.getElementById("co2-reduction-renewable").textContent = `Estimated CO2 reduction: ${co2ReductionRenewable.toFixed(2)} tons per year`;
+        document.getElementById("co2-from-methane").textContent = `CO2 produced from methane oxidation: ${co2FromMethane.toFixed(2)} tons`;
+      });
+    });
+  </script>
+</body>
+</html>
